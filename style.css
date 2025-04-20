@@ -30,11 +30,11 @@ section p {
 /* 🔧 On screens smaller than 600px: stack image and text vertically */
 @media (max-width: 600px) {
   section {
-    flex-direction: column;
+    flex-direction: row;
     text-align: center;
   }
 
   section img {
-    width: 150px;
+    width: 300px;
   }
 }
