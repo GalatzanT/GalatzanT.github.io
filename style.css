@@ -27,7 +27,7 @@ section p {
   margin: 0;
 }
 
-
+/*mobile version*/
 @media (max-width: 600px) {
   section {
     flex-direction: column;
