@@ -1,74 +1,316 @@
-/* General reset and base styles */
+/* Reset and base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  background-color: #fafafa;
-  color: #333;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    overflow-x: hidden;
 }
 
+/* Header styles */
 header {
-  background-color: #0073e6;
-  color: white;
-  text-align: center;
-  padding: 20px 0;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 2rem 0;
+    text-align: center;
+    position: relative;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
 }
 
+header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.1) 50%, transparent 70%);
+    animation: shimmer 3s ease-in-out infinite;
+    pointer-events: none;
+}
+
+@keyframes shimmer {
+    0%, 100% { transform: translateX(-100%); }
+    50% { transform: translateX(100%); }
+}
+
+header h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 0.5rem;
+    position: relative;
+    z-index: 1;
+}
+
+/* Navigation styles */
 nav {
-  background-color: #f0f0f0;
-  padding: 10px 0;
+    background: rgba(0, 0, 0, 0.9);
+    padding: 1rem 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    backdrop-filter: blur(10px);
 }
 
-nav .menu {
-  display: flex;
-  justify-content: center;
-  list-style: none;
-  margin: 0;
-  padding: 0;
+.menu {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
 }
 
-nav .menu li {
-  margin: 0 15px;
+.menu li a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+    padding: 0.8rem 1.5rem;
+    border-radius: 25px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
 }
 
-nav .menu a {
-  text-decoration: none;
-  color: #0073e6;
-  font-weight: bold;
-  transition: color 0.3s;
+.menu li a::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    transition: left 0.3s ease;
+    z-index: -1;
 }
 
-nav .menu a:hover {
-  color: #ff4500;
+.menu li a:hover::before {
+    left: 0;
 }
 
-section {
-  max-width: 800px;
-  margin: 40px auto;
-  padding: 0 20px;
-  text-align: center;
+.menu li a:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+}
+
+/* Socials section styles */
+#socials {
+    max-width: 800px;
+    margin: 4rem auto;
+    padding: 3rem;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+#socials::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(102, 126, 234, 0.1) 0%, transparent 70%);
+    animation: rotate 20s linear infinite;
+    pointer-events: none;
+}
+
+@keyframes rotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
 
 #socials h2 {
-  font-size: 2em;
-  margin-bottom: 30px;
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    position: relative;
+    z-index: 1;
 }
 
 .social-links {
-  list-style: none;
-  padding: 0;
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+    position: relative;
+    z-index: 1;
 }
 
 .social-links li {
-  margin: 15px 0;
+    transition: transform 0.3s ease;
+}
+
+.social-links li:hover {
+    transform: translateY(-5px);
 }
 
 .social-links a {
-  text-decoration: none;
-  font-size: 1.4em;
-  color: #333;
-  transition: color 0.3s;
+    display: block;
+    padding: 1.5rem 2rem;
+    text-decoration: none;
+    color: #fff;
+    font-size: 1.2rem;
+    font-weight: 600;
+    border-radius: 15px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+/* Individual social platform colors and effects */
+.social-links a[href*="instagram"] {
+    background: linear-gradient(135deg, #E4405F, #C13584, #833AB4);
+}
+
+.social-links a[href*="tiktok"] {
+    background: linear-gradient(135deg, #000000, #ff0050, #00f2ea);
+}
+
+.social-links a[href*="youtube"] {
+    background: linear-gradient(135deg, #FF0000, #CC0000);
+}
+
+.social-links a[href*="github"] {
+    background: linear-gradient(135deg, #24292e, #586069);
+}
+
+/* Hover effects for each platform */
+.social-links a::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.1);
+    transition: left 0.3s ease;
+}
+
+.social-links a:hover::before {
+    left: 0;
 }
 
 .social-links a:hover {
-  color: #0073e6;
+    transform: scale(1.05);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+/* Pulse animation for social links */
+@keyframes pulse {
+    0%, 100% { box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); }
+    50% { box-shadow: 0 15px 45px rgba(0, 0, 0, 0.4); }
+}
+
+.social-links a:nth-child(odd) {
+    animation: pulse 4s ease-in-out infinite;
+}
+
+.social-links a:nth-child(even) {
+    animation: pulse 4s ease-in-out infinite 2s;
+}
+
+/* Icon enhancement */
+.social-links a::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: 1rem;
+    width: 20px;
+    height: 20px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    transform: translateY(-50%) scale(0);
+    transition: transform 0.3s ease;
+}
+
+.social-links a:hover::after {
+    transform: translateY(-50%) scale(1);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 2rem;
+        letter-spacing: 1px;
+    }
+    
+    .menu {
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+    }
+    
+    #socials {
+        margin: 2rem 1rem;
+        padding: 2rem;
+    }
+    
+    #socials h2 {
+        font-size: 2rem;
+    }
+    
+    .social-links {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .social-links a {
+        padding: 1.2rem 1.5rem;
+        font-size: 1.1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    header {
+        padding: 1rem 0;
+    }
+    
+    header h1 {
+        font-size: 1.5rem;
+    }
+    
+    .menu li a {
+        padding: 0.6rem 1rem;
+        font-size: 0.9rem;
+    }
+    
+    #socials {
+        padding: 1.5rem;
+    }
+    
+    #socials h2 {
+        font-size: 1.8rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .social-links a {
+        padding: 1rem;
+        font-size: 1rem;
+    }
 }
