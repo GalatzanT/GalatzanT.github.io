@@ -1,36 +1,123 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
   <head>
-  <title>Tudor Galatan</title>
-  
-  <link rel="icon" type="image/x-icon" href="icon.jpeg">  
-  <link rel="apple-touch-icon" href="icon.png">
+    <title>Will You Be My Valentine? 💕</title>
 
+    <link rel="icon" type="image/x-icon" href="icon.jpeg" />
+    <link rel="apple-touch-icon" href="icon.png" />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" type="text/css" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="valentine.css" />
   </head>
   <body>
-    <header>
-        <h1>Tudor-Ioan Gălățan</h1>
-    </header>
+    <!-- Floating hearts background -->
+    <div class="hearts-container">
+      <div class="heart"></div>
+      <div class="heart"></div>
+      <div class="heart"></div>
+      <div class="heart"></div>
+      <div class="heart"></div>
+      <div class="heart"></div>
+      <div class="heart"></div>
+      <div class="heart"></div>
+    </div>
 
-    <nav>
-      <ul class="menu">
-        <li><a href="index.html">About Me</a></li>
-        <li><a href="CV.html">CV</a></li>
-        <li><a href="socials.html">Socials</a></li>
-      </ul>
-    </nav>
+    <div class="container" id="questionContainer">
+      <div class="card">
+        <h1 class="title">💝 Happy Valentine's Day! 💝</h1>
 
-    <section>
-    
-        <img src="profile.jpeg" alt="Hello">
+        <div class="message">
+          <p class="question">Will you be my Valentine this year?</p>
+          <p class="subtext">Please say yes... 🥺</p>
+        </div>
 
-        <p>Greetings and welcome to my page!
-          I'm Tudor, a 20-year-old student currently in my second year of studying Computer Science.
-          My main hobbies include basketball, going to the gym, and volunteering. In my free time, I also enjoy reading self-help books.
-          Now that you know a bit about me, feel free to explore my webpage!</p>
-    </section>
+        <div class="buttons">
+          <button class="btn yes-btn" onclick="sayYes()">Yes! 💕</button>
+          <button
+            class="btn no-btn"
+            id="noBtn"
+            onmouseover="moveButton()"
+            onclick="moveButton()"
+          >
+            No
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="container hidden" id="responseContainer">
+      <div class="card">
+        <h1 class="celebration">🎉 Yay! 🎉</h1>
+        <p class="love-message">I'm so happy! ❤️</p>
+        <p class="love-message">You've made me the happiest person! 💖</p>
+        <p class="love-message">I love you so much! 😊</p>
+        <div class="heart-burst">💕 💖 💗 💓 💞 💕 💖 💗 💓 💞</div>
+      </div>
+    </div>
+
+    <script>
+      let noButtonClickCount = 0;
+
+      function moveButton() {
+        const noBtn = document.getElementById("noBtn");
+        const container = document.getElementById("questionContainer");
+        const containerRect = container.getBoundingClientRect();
+
+        // Random position within the container
+        const maxX = containerRect.width - 120;
+        const maxY = containerRect.height - 60;
+
+        const randomX = Math.floor(Math.random() * maxX);
+        const randomY = Math.floor(Math.random() * maxY);
+
+        noBtn.style.position = "absolute";
+        noBtn.style.left = randomX + "px";
+        noBtn.style.top = randomY + "px";
+
+        // Change button text to make it cute
+        noButtonClickCount++;
+        const phrases = [
+          "No",
+          "Are you sure? 🥺",
+          "Really? 💔",
+          "Please? 🥹",
+          "Pretty please? 💕",
+          "Think again! ❤️",
+          "One more chance? 💖",
+          "You know you want to! 😊",
+        ];
+
+        if (noButtonClickCount < phrases.length) {
+          noBtn.textContent = phrases[noButtonClickCount];
+        }
+      }
+
+      function sayYes() {
+        document.getElementById("questionContainer").classList.add("hidden");
+        document.getElementById("responseContainer").classList.remove("hidden");
+
+        // Create celebration effect
+        createConfetti();
+      }
+
+      function createConfetti() {
+        const container = document.body;
+        for (let i = 0; i < 50; i++) {
+          const confetti = document.createElement("div");
+          confetti.className = "confetti";
+          confetti.style.left = Math.random() * 100 + "%";
+          confetti.style.animationDelay = Math.random() * 3 + "s";
+          confetti.style.backgroundColor = [
+            "#ff69b4",
+            "#ff1493",
+            "#ff69b4",
+            "#ffc0cb",
+          ][Math.floor(Math.random() * 4)];
+          container.appendChild(confetti);
+
+          setTimeout(() => confetti.remove(), 4000);
+        }
+      }
+    </script>
   </body>
 </html>
