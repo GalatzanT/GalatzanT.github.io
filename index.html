@@ -86,6 +86,7 @@
       function runAway(mouseX, mouseY, btnX, btnY) {
         const container = document.getElementById("questionContainer");
         const containerRect = container.getBoundingClientRect();
+        const btnRect = noBtn.getBoundingClientRect();
 
         // Calculate direction away from mouse
         const deltaX = btnX - mouseX;
@@ -97,12 +98,16 @@
         let newX = btnX + Math.cos(angle) * moveDistance - containerRect.left;
         let newY = btnY + Math.sin(angle) * moveDistance - containerRect.top;
 
-        // Keep button within container bounds
-        const maxX = containerRect.width - 120;
-        const maxY = containerRect.height - 60;
+        // Keep button within container bounds with proper padding
+        const btnWidth = btnRect.width;
+        const btnHeight = btnRect.height;
+        const padding = 10; // Extra padding from edges
 
-        newX = Math.max(0, Math.min(newX, maxX));
-        newY = Math.max(0, Math.min(newY, maxY));
+        const maxX = containerRect.width - btnWidth - padding;
+        const maxY = containerRect.height - btnHeight - padding;
+
+        newX = Math.max(padding, Math.min(newX, maxX));
+        newY = Math.max(padding, Math.min(newY, maxY));
 
         noBtn.style.position = "absolute";
         noBtn.style.left = newX + "px";

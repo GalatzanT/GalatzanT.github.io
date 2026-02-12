@@ -141,8 +141,10 @@ body {
   text-align: center;
   max-width: 500px;
   min-width: 350px;
+  min-height: 500px;
   animation: slideIn 0.6s ease-out;
   border: 3px solid rgba(255, 182, 193, 0.5);
+  position: relative;
 }
 
 @keyframes slideIn {
@@ -199,7 +201,9 @@ body {
   justify-content: center;
   margin-top: 2.5rem;
   position: relative;
-  min-height: 80px;
+  min-height: 200px;
+  width: 100%;
+  padding: 0 1rem;
 }
 
 .btn {
@@ -322,7 +326,9 @@ body {
 @media (max-width: 600px) {
   .card {
     min-width: 90%;
+    max-width: 95%;
     padding: 2rem 1.5rem;
+    min-height: 550px;
   }
 
   .title {
@@ -334,11 +340,18 @@ body {
   }
 
   .buttons {
-    flex-direction: column;
-    gap: 1rem;
+    min-height: 250px;
+    padding: 0 0.5rem;
   }
 
   .btn {
+    padding: 0.9rem 2rem;
+    font-size: 1.1rem;
+    max-width: 180px;
+  }
+
+  .love-image {
     width: 100%;
+    max-width: 350px;
   }
 }
