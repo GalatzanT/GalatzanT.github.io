@@ -48,6 +48,7 @@
     <div class="container hidden" id="responseContainer">
       <div class="card">
         <h1 class="celebration">🎉 Yay! 🎉</h1>
+        <img src="download.jpg" alt="Love" class="love-image" />
         <p class="love-message">I'm so happy! ❤️</p>
         <p class="love-message">You've made me the happiest person! 💖</p>
         <p class="love-message">I love you so much! 😊</p>
@@ -57,24 +58,58 @@
 
     <script>
       let noButtonClickCount = 0;
+      const noBtn = document.getElementById("noBtn");
+      const safeDistance = 150; // Minimum distance from mouse in pixels
 
-      function moveButton() {
-        const noBtn = document.getElementById("noBtn");
+      // Track mouse movement
+      document.addEventListener("mousemove", function(e) {
+        if (!noBtn || noBtn.classList.contains('caught')) return;
+        
+        const btnRect = noBtn.getBoundingClientRect();
+        const btnCenterX = btnRect.left + btnRect.width / 2;
+        const btnCenterY = btnRect.top + btnRect.height / 2;
+        
+        const mouseX = e.clientX;
+        const mouseY = e.clientY;
+        
+        // Calculate distance from mouse to button center
+        const distance = Math.sqrt(
+          Math.pow(mouseX - btnCenterX, 2) + Math.pow(mouseY - btnCenterY, 2)
+        );
+        
+        // If mouse is too close, run away!
+        if (distance < safeDistance) {
+          runAway(mouseX, mouseY, btnCenterX, btnCenterY);
+        }
+      });
+
+      function runAway(mouseX, mouseY, btnX, btnY) {
         const container = document.getElementById("questionContainer");
         const containerRect = container.getBoundingClientRect();
-
-        // Random position within the container
+        
+        // Calculate direction away from mouse
+        const deltaX = btnX - mouseX;
+        const deltaY = btnY - mouseY;
+        const angle = Math.atan2(deltaY, deltaX);
+        
+        // Move button away from mouse
+        const moveDistance = 100;
+        let newX = btnX + Math.cos(angle) * moveDistance - containerRect.left;
+        let newY = btnY + Math.sin(angle) * moveDistance - containerRect.top;
+        
+        // Keep button within container bounds
         const maxX = containerRect.width - 120;
         const maxY = containerRect.height - 60;
-
-        const randomX = Math.floor(Math.random() * maxX);
-        const randomY = Math.floor(Math.random() * maxY);
-
+        
+        newX = Math.max(0, Math.min(newX, maxX));
+        newY = Math.max(0, Math.min(newY, maxY));
+        
         noBtn.style.position = "absolute";
-        noBtn.style.left = randomX + "px";
-        noBtn.style.top = randomY + "px";
-
-        // Change button text to make it cute
+        noBtn.style.left = newX + "px";
+        noBtn.style.top = newY + "px";
+        noBtn.style.transition = "all 0.3s ease-out";
+        
+        // Change button text progressively
         noButtonClickCount++;
         const phrases = [
           "No",
@@ -85,10 +120,20 @@
           "Think again! ❤️",
           "One more chance? 💖",
           "You know you want to! 😊",
+          "Just say yes! 💝",
+          "Come on! 🥰"
         ];
+        
+        const phraseIndex = Math.min(noButtonClickCount, phrases.length - 1);
+        noBtn.textContent = phrases[phraseIndex];
+      }
 
-        if (noButtonClickCount < phrases.length) {
-          noBtn.textContent = phrases[noButtonClickCount];
+      function moveButton() {
+        // This is for click/tap on mobile
+        if (noBtn) {
+          runAway(event.clientX || 0, event.clientY || 0, 
+                  noBtn.getBoundingClientRect().left + 60,
+                  noBtn.getBoundingClientRect().top + 30);
         }
       }
 
